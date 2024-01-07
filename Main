@@ -1,0 +1,45 @@
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class AttendanceManagementSystem {
+    private Map<String, Boolean> attendanceMap;
+
+    public AttendanceManagementSystem() {
+        attendanceMap = new HashMap<>();
+    }
+
+    public void markAttendance(String studentId, boolean isPresent) {
+        attendanceMap.put(studentId, isPresent);
+    }
+
+    public void displayAttendance() {
+        System.out.println("Attendance Report:");
+        for (Map.Entry<String, Boolean> entry : attendanceMap.entrySet()) {
+            System.out.println("Student ID: " + entry.getKey() +
+                    ", Attendance: " + (entry.getValue() ? "Present" : "Absent"));
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        AttendanceManagementSystem attendanceSystem = new AttendanceManagementSystem();
+
+        while (true) {
+            System.out.println("Enter Student ID (or 'exit' to end): ");
+            String studentId = scanner.nextLine();
+
+            if (studentId.equalsIgnoreCase("exit")) {
+                break;
+            }
+
+            System.out.println("Is the student present? (yes/no): ");
+            String presenceInput = scanner.nextLine();
+
+            boolean isPresent = presenceInput.equalsIgnoreCase("yes");
+            attendanceSystem.markAttendance(studentId, isPresent);
+        }
+
+        attendanceSystem.displayAttendance();
+    }
+}
